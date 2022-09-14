@@ -1,43 +1,41 @@
-// To parse this JSON data, do
-//
-//     final welcome = welcomeFromJson(jsonString);
+
 
 import 'dart:convert';
 
-CharactersData charactersDataFromJson(String str) => CharactersData.fromJson(json.decode(str));
+Details detailsFromJson(String str) => Details.fromJson(json.decode(str));
 
-String charactersDataToJson(CharactersData data) => json.encode(data.toJson());
+String detailsToJson(Details data) => json.encode(data.toJson());
 
-class CharactersData {
-  CharactersData({
+class Details {
+  Details({
     required this.count,
     required this.next,
     required this.previous,
-    required this.results,
+    required this.detalhes,
   });
 
   int count;
   String next;
   dynamic previous;
-  List<Character> results;
+  List<Detail> detalhes;
 
-  factory CharactersData.fromJson(Map<String, dynamic> json) => CharactersData(
+  factory Details.fromJson(Map<String, dynamic> json) => Details(
     count: json["count"],
     next: json["next"],
     previous: json["previous"],
-    results: List<Character>.from(json["results"].map((x) => Character.fromJson(x))),
+    detalhes: List<Detail>.from(json["detalhes"].map((x) => Detail.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "count": count,
     "next": next,
     "previous": previous,
-    "results": List<dynamic>.from(results.map((x) => x.toJson())),
+    "detalhes": List<dynamic>.from(detalhes.map((x) => x.toJson())),
   };
 }
 
-class Character {
-  Character({
+class Detail {
+  Detail({
     required this.name,
     required this.height,
     required this.mass,
@@ -66,14 +64,14 @@ class Character {
   String gender;
   String homeworld;
   List<String> films;
-  List<String> species;
+  List<dynamic> species;
   List<String> vehicles;
   List<String> starships;
-  DateTime created;
-  DateTime edited;
+  String created;
+  String edited;
   String url;
 
-  factory Character.fromJson(Map<String, dynamic> json) => Character(
+  factory Detail.fromJson(Map<String, dynamic> json) => Detail(
     name: json["name"],
     height: json["height"],
     mass: json["mass"],
@@ -84,11 +82,11 @@ class Character {
     gender: json["gender"],
     homeworld: json["homeworld"],
     films: List<String>.from(json["films"].map((x) => x)),
-    species: List<String>.from(json["species"].map((x) => x)),
+    species: List<dynamic>.from(json["species"].map((x) => x)),
     vehicles: List<String>.from(json["vehicles"].map((x) => x)),
     starships: List<String>.from(json["starships"].map((x) => x)),
-    created: DateTime.parse(json["created"]),
-    edited: DateTime.parse(json["edited"]),
+    created: json["created"],
+    edited: json["edited"],
     url: json["url"],
   );
 
@@ -106,8 +104,8 @@ class Character {
     "species": List<dynamic>.from(species.map((x) => x)),
     "vehicles": List<dynamic>.from(vehicles.map((x) => x)),
     "starships": List<dynamic>.from(starships.map((x) => x)),
-    "created": created.toIso8601String(),
-    "edited": edited.toIso8601String(),
+    "created": created,
+    "edited": edited,
     "url": url,
   };
 }
