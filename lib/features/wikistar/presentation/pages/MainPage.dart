@@ -44,8 +44,6 @@ class _MainPageState extends State<MainPage> {
       } else {
         characters.addAll(result.results);
       }
-
-      // characters = result.results;
       currentPage++;
 
       count = result.count;

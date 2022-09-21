@@ -8,15 +8,14 @@ import 'package:star_wars_wiki/features/wikistar/presentation/pages/MainPage.dar
 import '../../data/models/character_detailed.dart';
 
 class CharacterDetailed extends StatefulWidget {
+  const CharacterDetailed({Key? key}) : super(key: key);
+
   @override
-  State<CharacterDetailed> createState() => _CharacterDetailedState();
+  State<StatefulWidget> createState() => _CharacterDetailedState();
 }
 
 class _CharacterDetailedState extends State<CharacterDetailed> {
   int currentChar = 1;
-
-  late int count;
-
   List<Detail> charactersDetails = [];
 
   final RefreshController refreshController =
@@ -47,9 +46,6 @@ class _CharacterDetailedState extends State<CharacterDetailed> {
 
       currentChar++;
 
-      count = result.detalhes as int;
-
-      print(response.body);
       setState(() {});
       return true;
     } else {
@@ -66,27 +62,41 @@ class _CharacterDetailedState extends State<CharacterDetailed> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Teste")),
-      body: ListView.separated(
-          itemBuilder: (context, index) {
-            final character = charactersDetails[index];
-            return ListTile(
-              title: Text(character.name),
-              subtitle: Text(character.height),
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(character.gender),
-                  Text(character.mass),
-                ],
-              ),
-              dense: false,
-            );
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'My App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: Scaffold(
+        appBar: AppBar(
+            title: Text('E, lá, vamos nós...')),
+        body: BodyWidget(),
+      ),
+    );
+  }
+}
+
+
+class BodyWidget extends StatefulWidget {
+  @override
+  State<BodyWidget> createState() => _BodyWidgetState();
+}
+
+class _BodyWidgetState extends State<BodyWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <Widget>[
+        ListTile(
+          title: Text('Teste'),
+          subtitle: Text('Pra ver se sou burro mesmo ou não.'),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            print('é, você é burro');
           },
-          separatorBuilder: (context, index) => Divider(),
-          itemCount: charactersDetails.length),
+        )
+      ],
     );
   }
 }
